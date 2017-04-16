@@ -19,7 +19,7 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget
 (SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file that generates analytic dataset FRPM1516_analytic_file;
+* load external file that generates analytic dataset project1_analytic_file;
 %include '.\STAT6250-02_s17-team-5_project1_data_preparation.sas';
 
 
