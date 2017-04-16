@@ -59,34 +59,32 @@ run;
 
 
 *
-Research Question: How does the distribution of "Percent (%) Eligible FRPM
-(K-12)" for charter schools compare to that of non-charter schools?
-Rationale: This would help inform whether outreach based upon child poverty
-levels should be provided to charter schools.
-Methodolody: Compute five-number summaries by charter-school indicator variable
+Research Question: How does the distribution of number of dropouts compare
+between male and female students?
+Rationale: This would help inform whether outreach should be more focused
+on male or female students as being of greatest risk of dropping out.
+Methodolody: Compute five-number summaries by Gender variable
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for percentages
 between 0 and 1.
 Possible Follow-up Steps: More carefully clean the values of the variable
-Percent_Eligible_FRPM_K12 so that the statistics computed do not include any
+DTOT so that the statistics computed do not include any
 possible illegal values, and better handle missing data, e.g., by using a
 previous year's data or a rolling average of previous years' data as a proxy.
 ;
-proc means min q1 median q3 max data=FRPM1516_analytic_file;
-    class Charter_School;
-    var Percent_Eligible_FRPM_K12;
+proc means min q1 median q3 max data=project1_analytic_file;
+    class Gender;
+    var DTOT;
 run;
 
 
 *
-Research Question: Can "Enrollment (K-12)" be used to predict "Percent (%)
-Eligible FRPM (K-12)"?
-Rationale: This would help determine whether outreach based upon child poverty
-levels should be provided to smaller schools. E.g., if enrollment is highly
-correlated with FRPM rate, then only larger schools would tend to have high
-child poverty rates.
+Research Question: Can Dropouts in Grade 9 (D9) be used to predict greater
+risk of dropping out in 12th grade?
+Rationale: This would help determine whether outreach performed more 
+aggressively among ninth-graders would stem the high school dropout rate.
 Methodology: Use proc means to study the five-number summary of each variable,
-create formats to bin values of Enrollment_K12 and Percent_Eligible_FRPM_K12
+create formats to bin values of D9 and DTOT
 based upon their spread, and use proc freq to cross-tabulate bins.
 Limitations: Even though predictive modeling is specified in the research
 questions, this methodology solely relies on a crude descriptive technique
@@ -95,32 +93,32 @@ method to find actual association between the variables.
 Follow-up Steps: A possible follow-up to this approach could use an inferential
 statistical technique like beta regression.
 ;
-proc means min q1 median q3 max data=FRPM1516_analytic_file;
+proc means min q1 median q3 max data=project1_analytic_file;
     var
-        Enrollment_K12
-        Percent_Eligible_FRPM_K12
+        D9
+        D12
     ;
 run;
 proc format;
-    value Enrollment_K12_bins
-        low-262="Q1 Enrollment"
-        263-510="Q2 Enrollment"
-        511-740="Q3 Enrollment"
-        741-high="Q4 Enrollment"
+    value D9_bins
+        low-1="Q1 9th grade Dropouts"
+        2-5="Q2 9th grade Dropouts"
+        6-9="Q3 9th grade Dropouts"
+        10-high="Q4 9th grade Dropouts"
     ;
-    value Percent_Eligible_FRPM_K12_bins
-        low-<.36="Q1 FRPM"
-        .36-<.67="Q2 FRPM"
-        .67-<.86="Q3 FRPM"
-        .86-high="Q4 FRPM"
+    value DTOT_bins
+        low-<1="Q1 12th grade Dropouts"
+        2-<5="Q2 12th grade Dropouts"
+        6-<9="Q3 12th grade Dropouts"
+        10-high="Q4 12th grade Dropouts"
     ;
 run;
-proc freq data=FRPM1516_analytic_file;
-    table Enrollment_K12*Percent_Eligible_FRPM_K12
+proc freq data=project1_analytic_file;
+    table D9*D12
         / missing norow nocol nopercent
     ;
     format
-        Enrollment_K12 Enrollment_K12_bins.
-        Percent_Eligible_FRPM_K12 Percent_Eligible_FRPM_K12_bins.
+        D9 D9_bins.
+        DTOT DTOT_bins.
     ;
 run;
