@@ -31,7 +31,7 @@ https://github.com/stat6250/team-5_project1/blob/master/project1_datasetv4.xls?r
 ;
 
 
-* load raw FRPM dataset over the wire;
+* load raw dropout dataset over the wire;
 filename tempfile TEMP;
 proc http
     method="get"
@@ -47,17 +47,18 @@ run;
 filename tempfile clear;
 
 
-* check raw FRPM dataset for duplicates with respect to its composite key;
+* check raw dropout dataset for duplicates with respect to its composite key;
 proc sort nodupkey data=project1_raw dupout=project1_raw_dups out=_null_;
     by CDS_CODE;
 run;
 
 
-* build analytic dataset from FRPM dataset with the least number of columns and
+* build analytic dataset from dropout dataset with the least number of columns and
 minimal cleaning/transformation needed to address research questions in
 corresponding data-analysis files;
 data project1_analytic_file;
     retain
+        CDS_CODE
         D7
         D8
         D9
@@ -68,6 +69,7 @@ data project1_analytic_file;
         DTOT
     ;
     keep
+        CDS_CODE
         D7
         D8
         D9
