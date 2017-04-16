@@ -13,14 +13,30 @@ See included file for dataset properties
 ;
 
 * environmental setup;
+%let dataPrepFileName = STAT6250-02_s17-team-5_project1_data_preparation.sas;
+%let sasUEFilePrefix = team-5_project1;
 
-* set relative file import path to current directory (using standard SAS trick;
-X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget
-(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
-
-
-* load external file that generates analytic dataset project1_analytic_file;
-%include '.\STAT6250-02_s17-team-5_project1_data_preparation.sas';
+* load external file that generates analytic dataset project1_analytic_file
+using a system path dependent on the host operating system, after setting the
+relative file import path to the current directory, if using Windows;
+%macro setup;
+%if
+    &SYSSCP. = WIN
+%then
+    %do;
+        X
+        "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget
+        (SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))"""
+        ;           
+        %include ".\&dataPrepFileName.";
+    %end;
+%else
+    %do;
+        %include "~/&sasUEFilePrefix./&dataPrepFileName.";
+    %end;
+%mend;
+%setup
+;
 
 
 *
