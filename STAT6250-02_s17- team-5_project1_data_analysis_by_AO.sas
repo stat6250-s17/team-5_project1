@@ -24,35 +24,37 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget
 
 
 *
-Research Question: What are the top twenty districts with the highest mean
-values of "Percent (%) Eligible FRPM (K-12)"?
-Rationale: This should help identify the school districts in the most need of
-outreach based upon child poverty levels.
-Methodology: Use PROC MEANS to compute the mean of Percent_Eligible_FRPM_K12
-for District_Name, and output the results to a temportatry dataset. Use PROC
-SORT extract and sort just the means the temporary dateset, and use PROC PRINT
-to print just the first twenty observations from the temporary dataset.
+Research Question: What are the top three ethnic groups with the highest mean
+number of dropouts in California?
+Rationale: This should help identify groups of students that are most at risk
+of dropping out by ethnicity.
+Methodology: Use PROC MEANS to compute the mean of students of a given ethnicity
+by total dropout rate of both genders, and output the results to a temportary 
+dataset. Use PROC SORT to extract and sort just the means of the temporary dataset, 
+and use PROC PRINT to print just the first three observations from the temporary 
+dataset.
 Limitations: This methodology does not account for districts with missing data,
 nor does it attempt to validate data in any way, like filtering for percentages
 between 0 and 1.
-Possible Follow-up Steps: More carefully clean the values of the variable
-Percent_Eligible_FRPM_K12 so that the means computed do not include any possible
+Possible Follow-up Steps: More carefully clean the values of the variables
+DTOT and ETOT so that the means computed do not include any possible
 illegal values, and better handle missing data, e.g., by using a previous year's
 data or a rolling average of previous years' data as a proxy.
 ;
-proc means mean noprint data=FRPM1516_analytic_file;
-    class District_Name;
-    var Percent_Eligible_FRPM_K12;
-    output out=FRPM1516_analytic_file_temp;
+
+proc means mean noprint data=project1_analytic_file;
+    class Ethnic;
+    var DTOT;
+    output out=project1_analytic_file_temp;
 run;
 
-proc sort data=FRPM1516_analytic_file_temp(where=(_STAT_="MEAN"));
-    by descending Percent_Eligible_FRPM_K12;
+proc sort data=project1_analytic_file_temp(where=(_STAT_="MEAN"));
+    by descending DTOT;
 run;
 
-proc print noobs data=FRPM1516_analytic_file_temp(obs=20);
-    id District_Name;
-    var Percent_Eligible_FRPM_K12;
+proc print noobs data=project1_analytic_file_temp(obs=3);
+    class Ethnic;
+    var DTOT;
 run;
 
 
