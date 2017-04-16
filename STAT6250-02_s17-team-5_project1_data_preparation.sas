@@ -16,7 +16,7 @@ This file prepares the dataset described below for analysis.
 [Data Source] The file http://dq.cde.ca.gov/dataquest/dlfile/dlfile.aspx?cLevel=
 School&cYear=2014-15&cCat=Dropouts&cPage=filesdropouts was
 downloaded as a text file and imported to Excel as tab-delimited text, then edited
-to produce file project1_datasetv4.cvs by setting all numeric values to number 
+to produce file project1_datasetv4.csv by setting all numeric values to number 
 types and the column labels and gender codes to text.
 
 [Data Dictionary] http://www.cde.ca.gov/ds/sd/sd/fsdropouts.asp
@@ -26,7 +26,7 @@ types and the column labels and gender codes to text.
 
 * setup environmental parameters;
 %let inputDatasetURL =
-https://github.com/stat6250/team-5_project1/blob/master/project1_datasetv4.cvs?raw=true
+https://github.com/stat6250/team-5_project1/blob/master/project1_datasetv4.csv?raw=true
 ;
 
 
@@ -41,7 +41,7 @@ run;
 proc import
     file=tempfile
     out=project1_raw
-    dbms=cvs;
+    dbms=csv;
 run;
 filename tempfile clear;
 
