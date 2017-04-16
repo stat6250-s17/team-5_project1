@@ -11,6 +11,12 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 
 Rationale:  This would help us to know which county in California has lower drop out rate which has higher dropout rate, helps us 
 to know which country maybe need more help in early school dropout issue.
+
+Methodology: 
+
+Limitations:
+
+Possible Follow-up Steps:
 ;
 
 *
@@ -19,6 +25,12 @@ more males dropped out school?
 
 Rationale:  This would help us to know which counties in California has higher female drop-out rate, which counties has higher male 
 drop-out rate, which have not difference.
+
+Methodology: 
+
+Limitations:
+
+Possible Follow-up Steps:
 ;
 
 *
@@ -27,5 +39,11 @@ lower drop-out rate than other ethnics?
 
 Rationale:  This would help us to know if Asian actually does has lower drop-out rate than other ethnic, a interesting research question 
 to test this stereotype.
+
+Methodology: 
+
+Limitations:
+
+Possible Follow-up Steps:
 ;
 
