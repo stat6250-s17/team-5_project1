@@ -13,7 +13,7 @@ Rationale:  This would help us to know which county in California has lower drop
 to know which country maybe need more help in early school dropout issue.
 ;
 
-
+*
 [Research Question 2] In different counties and same ethnics, which county has more females dropped out school and which county has
 more males dropped out school?
 
@@ -21,7 +21,7 @@ Rationale:  This would help us to know which counties in California has higher f
 drop-out rate, which have not difference.
 ;
 
-
+*
 [Research Question 3] People always saying Asian parents more like to push their kids hard for education, So does Asian (Code2) has 
 lower drop-out rate than other ethnics?
 
