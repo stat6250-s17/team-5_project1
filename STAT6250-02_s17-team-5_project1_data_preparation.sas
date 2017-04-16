@@ -21,7 +21,7 @@ types and the column labels and gender codes to text.
 
 [Data Dictionary] http://www.cde.ca.gov/ds/sd/sd/fsdropouts.asp
 
-[Unique ID] The columns  CDS_CODE, Ethnicity, and Gender form a
+[Unique ID] The columns  CDS_CODE, Ethnic(ity), and Gender form a
 composite key
 ;
 
@@ -49,7 +49,7 @@ filename tempfile clear;
 
 * check raw dropout dataset for duplicates with respect to its composite key;
 proc sort nodupkey data=project1_raw dupout=project1_raw_dups out=_null_;
-    by CDS_CODE Ethnicity Gender;
+    by CDS_CODE Ethnic Gender;
 run;
 
 
