@@ -9,20 +9,19 @@ This file prepares the dataset described below for analysis.
 
 [Experimental Units] California public K-12 schools
 
-[Number of Observations] 58,876    
+[Number of Observations] 59,316    
 
-[Number of Features] 20
+[Number of Features] 36
 
-[Data Source] The file http://dq.cde.ca.gov/dataquest/dlfile/dlfile.aspx?cLevel=
-School&cYear=2014-15&cCat=Dropouts&cPage=filesdropouts for dropout data for 2014-
-2015 and http://dq.cde.ca.gov/dataquest/dlfile/dlfile.aspx?cLevel=
-School&cYear=2014-15&cCat=Dropouts&cPage=filesdropouts for dropout data for 2015-
-2016 were downloaded, along with ftp://ftp.cde.ca.gov/demo/schlname/pubschls.txt
+[Data Source] The file http://dq.cde.ca.gov/dataquest/dlfile/dlfile.aspx?
+cLevel=School&cYear=2015-16&cCat=Dropouts&cPage=filesdropouts for dropout 
+data for 2015-2016 were downloaded, along with 
+ftp://ftp.cde.ca.gov/demo/schlname/pubschls.txt
 to cross-reference county, district, and individual school details. They were
 each downloaded as text files and imported to Excel in individual sheets as 
 tab-delimited text, the schools file was used to provide necessary detail for 
-the two dropout data files, through VLOOKUP commands. The resulting workbook
-is named dropout_dataset_master.xls.
+the dropout data file, through VLOOKUP commands. The resulting workbook
+is named dropout_dataset_2015_2016.csv.
 
 [Data Dictionary] http://www.cde.ca.gov/ds/sd/sd/fsdropouts.asp (dropout data)
 and http://www.cde.ca.gov/ds/si/ds/fspubschls.asp (school and district data)
@@ -33,7 +32,7 @@ composite key
 
 * setup environmental parameters;
 %let inputDatasetURL =
-https://github.com/stat6250/team-5_project1/blob/master/dropout_dataset_master_V2.xls?raw=true
+https://github.com/stat6250/team-5_project1/blob/master/dropout_dataset_2015_2016.csv?raw=true
 ;
 
 
@@ -48,7 +47,7 @@ run;
 proc import
     file=tempfile
     out=dropout_raw
-    dbms=xls;
+    dbms=csv;
 run;
 filename tempfile clear;
 * check raw dropout dataset for duplicates with respect to its composite key;
