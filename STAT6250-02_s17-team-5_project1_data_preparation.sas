@@ -22,7 +22,7 @@ to cross-reference county, district, and individual school details. They were
 each downloaded as text files and imported to Excel in individual sheets as 
 tab-delimited text, the schools file was used to provide necessary detail for 
 the two dropout data files, through VLOOKUP commands. The resulting workbook
-is named dropout_dataset_master.xlsx.
+is named dropout_dataset_master.xls.
 
 [Data Dictionary] http://www.cde.ca.gov/ds/sd/sd/fsdropouts.asp (dropout data)
 and http://www.cde.ca.gov/ds/si/ds/fspubschls.asp (school and district data)
@@ -33,7 +33,7 @@ composite key
 
 * setup environmental parameters;
 %let inputDatasetURL =
-https://github.com/stat6250/team-5_project1/blob/master/dropout_dataset_master.xlsx?raw=true
+https://github.com/stat6250/team-5_project1/blob/master/dropout_dataset_master_V2.xls?raw=true
 ;
 
 
@@ -47,15 +47,22 @@ proc http
 run;
 proc import
     file=tempfile
-    out=dropout_dataset_raw
-    dbms=xlsx;
+    out=dropout_raw
+    dbms=xls;
 run;
 filename tempfile clear;
-
-
 * check raw dropout dataset for duplicates with respect to its composite key;
-proc sort nodupkey data=dropout_dataset_raw dupout=dropout_dataset_raw_dups out=_null_;
-    by CDS_CODE Ethnic Gender;
+proc sort
+        nodupkey
+        data=dropout_raw
+        dupout=dropout_raw_dups
+        out=_null_
+    ;
+    by
+        CDS_CODE
+        Ethnic
+		Gender
+    ;
 run;
 
 
@@ -63,7 +70,7 @@ run;
 minimal cleaning/transformation needed to address research questions in
 corresponding data-analysis files
 ;
-data dropout_dataset_analytic_file;
+data dropout_analytic_file;
     retain
         CDS_CODE
 		COUNTY
@@ -132,5 +139,5 @@ data dropout_dataset_analytic_file;
 		DUS
 		DTOT
     ;
-    set dropout_dataset_raw;
+    set dropout_raw;
 run;
