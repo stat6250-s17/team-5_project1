@@ -49,8 +49,46 @@ proc import
     out=dropout_raw
     dbms=csv
 	replace;
+	delimiter=',';
+	getnames=yes;
+ 	guessingrows=5000;
+	input CDS_CODE
+		COUNTY $
+		DISTRICT $
+		SCHOOL $
+		CHARTER_SCHOOL $
+		DOC
+		DOCType $ 
+		SOC
+		SOCType $ 
+		EdOpsCode
+		EdOpsName $
+		EILCode
+		EILName $ 
+		STATUS $ 
+		ETHNIC $
+		GENDER $
+		E7
+		E8
+		E9
+		E10
+		E11
+		E12
+		EUS
+		ETOT
+		D7
+		D8
+		D9
+		D10
+		D11
+		D12
+		DUS
+		DTOT;
 run;
+
 filename tempfile clear;
+
+
 * check raw dropout dataset for duplicates with respect to its composite key;
 proc sort
         nodupkey
@@ -141,3 +179,8 @@ data dropout_analytic_file;
     ;
     set dropout_raw;
 run;
+
+proc print data = dropout_analytic_file(firstobs= 1 obs= 5000);
+   title 'Dropouts Statewide (CA) by County/District/School 2015-16';
+run;
+
