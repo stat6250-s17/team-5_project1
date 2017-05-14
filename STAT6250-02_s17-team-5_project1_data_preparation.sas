@@ -46,20 +46,22 @@ proc http
     ;
 run;
 proc import
-    file=tempfile
     out=dropout_raw
+	datafile=tempfile
     dbms=csv
 	replace;
 	delimiter=',';
 	getnames=yes;
  	guessingrows=5000;
-	input CDS_CODE
+run;
+data 
+	set dropout_raw;
+	input 
+		CDS_CODE
 		COUNTY $
 		DISTRICT $
 		SCHOOL $
 		CHARTER_SCHOOL $
-		DOC
-		DOCType $ 
 		SOC
 		SOCType $ 
 		EdOpsCode
@@ -85,7 +87,7 @@ proc import
 		D12
 		DUS
 		DTOT;
-run;
+	run;
 
 filename tempfile clear;
 
@@ -111,22 +113,20 @@ corresponding data-analysis files
 ;
 data dropout_analytic_file;
     retain
-        CDS_CODE
-		COUNTY
-		DISTRICT
-		SCHOOL
-		CHARTER_SCHOOL
-		DOC
-		DOCType
+     CDS_CODE
+		COUNTY $
+		DISTRICT $
+		SCHOOL $
+		CHARTER_SCHOOL $
 		SOC
-		SOCType
+		SOCType $ 
 		EdOpsCode
-		EdOpsName
+		EdOpsName $
 		EILCode
-		EILName
-		STATUS
-		ETHNIC
-		GENDER
+		EILName $ 
+		STATUS $ 
+		ETHNIC $
+		GENDER $
 		E7
 		E8
 		E9
@@ -145,22 +145,20 @@ data dropout_analytic_file;
 		DTOT
     ;
      keep
-        CDS_CODE
-		COUNTY
-		DISTRICT
-		SCHOOL
-		CHARTER_SCHOOL
-		DOC
-		DOCType
+  CDS_CODE
+		COUNTY $
+		DISTRICT $
+		SCHOOL $
+		CHARTER_SCHOOL $
 		SOC
-		SOCType
+		SOCType $ 
 		EdOpsCode
-		EdOpsName
+		EdOpsName $
 		EILCode
-		EILName
-		STATUS
-		ETHNIC
-		GENDER
+		EILName $ 
+		STATUS $ 
+		ETHNIC $
+		GENDER $
 		E7
 		E8
 		E9
